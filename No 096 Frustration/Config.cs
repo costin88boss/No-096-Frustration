@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace No_096_Frustration_EXILED2._0
+namespace No096FrustrationEXILED20
 {
     public class Config : IConfig
     {

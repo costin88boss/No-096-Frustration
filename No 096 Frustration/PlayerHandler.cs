@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace No_096_Frustration_EXILED2._0
+namespace No096FrustrationEXILED20
 {
-    class PlayerHandler : MonoBehaviour
+    class PlayerHandler
     {
         public List<Player> Scp096Players = new List<Player>();
         public void OnPlayerLeft(DestroyingEventArgs e)
@@ -18,7 +18,7 @@ namespace No_096_Frustration_EXILED2._0
         }
         public void OnChangeRole(ChangingRoleEventArgs e)
         {
-            if (No_096_Frustration.SingleTon.Config.ChangingRoleTriggersPlugin)
+            if (No_096_Frustration.Singleton.Config.ChangingRoleTriggersPlugin)
             {
                 if (e.NewRole == RoleType.Scp096 && e.Player.Role != RoleType.Scp096)
 
@@ -37,7 +37,7 @@ namespace No_096_Frustration_EXILED2._0
         }
         public void OnPlayerSpawn(SpawningEventArgs e)
         {
-            if (No_096_Frustration.SingleTon.Config.ChangingRoleTriggersPlugin)
+            if (No_096_Frustration.Singleton.Config.ChangingRoleTriggersPlugin)
                 if (e.RoleType == RoleType.Scp096)
                 {
                     Scp096Players.Add(e.Player);
@@ -49,10 +49,10 @@ namespace No_096_Frustration_EXILED2._0
         {
             if (!OnRoundStart)
             {
-                if (Player.List.Count() <= No_096_Frustration.SingleTon.Config.MaxPlayersNewScp)
+                if (Player.List.Count() <= No_096_Frustration.Singleton.Config.MaxPlayersNewScp)
                 SetRole(true);
             }
-            else if (Player.List.Count() <= No_096_Frustration.SingleTon.Config.MaxPlayersNewScp && !Player.List.Any(e => e.IsScp && e.Role != RoleType.Scp096))
+            else if (Player.List.Count() <= No_096_Frustration.Singleton.Config.MaxPlayersNewScp && !Player.List.Any(e => e.IsScp && e.Role != RoleType.Scp096))
             {
                 SetRole(false);
             }
@@ -67,22 +67,22 @@ namespace No_096_Frustration_EXILED2._0
                 {
                     case 1:
 
-                        player.Broadcast(new Exiled.API.Features.Broadcast(No_096_Frustration.SingleTon.Config.Were096ChangedMsg.Replace("{PlayerCount}", No_096_Frustration.SingleTon.Config.MaxPlayersNewScp.ToString()).Replace("{ScpName}", "Scp-049")));
+                        player.Broadcast(new Exiled.API.Features.Broadcast(No_096_Frustration.Singleton.Config.Were096ChangedMsg.Replace("{PlayerCount}", No_096_Frustration.Singleton.Config.MaxPlayersNewScp.ToString()).Replace("{ScpName}", "Scp-049")));
                         player.SetRole(RoleType.Scp049, !Respawn);
                         break;
                     case 2:
 
-                        player.Broadcast(new Exiled.API.Features.Broadcast(No_096_Frustration.SingleTon.Config.Were096ChangedMsg.Replace("{PlayerCount}", No_096_Frustration.SingleTon.Config.MaxPlayersNewScp.ToString()).Replace("{ScpName}", "Scp-106")));
+                        player.Broadcast(new Exiled.API.Features.Broadcast(No_096_Frustration.Singleton.Config.Were096ChangedMsg.Replace("{PlayerCount}", No_096_Frustration.Singleton.Config.MaxPlayersNewScp.ToString()).Replace("{ScpName}", "Scp-106")));
                         player.SetRole(RoleType.Scp106, !Respawn);
                         break;
                     case 3:
 
-                        player.Broadcast(new Exiled.API.Features.Broadcast(No_096_Frustration.SingleTon.Config.Were096ChangedMsg.Replace("{PlayerCount}", No_096_Frustration.SingleTon.Config.MaxPlayersNewScp.ToString()).Replace("{ScpName}", "Scp-173")));
+                        player.Broadcast(new Exiled.API.Features.Broadcast(No_096_Frustration.Singleton.Config.Were096ChangedMsg.Replace("{PlayerCount}", No_096_Frustration.Singleton.Config.MaxPlayersNewScp.ToString()).Replace("{ScpName}", "Scp-173")));
                         player.SetRole(RoleType.Scp173, !Respawn);
                         break;
                     case 4:
 
-                        player.Broadcast(new Exiled.API.Features.Broadcast(No_096_Frustration.SingleTon.Config.Were096ChangedMsg.Replace("{PlayerCount}", No_096_Frustration.SingleTon.Config.MaxPlayersNewScp.ToString()).Replace("{ScpName}", "Scp-939-53")));
+                        player.Broadcast(new Exiled.API.Features.Broadcast(No_096_Frustration.Singleton.Config.Were096ChangedMsg.Replace("{PlayerCount}", No_096_Frustration.Singleton.Config.MaxPlayersNewScp.ToString()).Replace("{ScpName}", "Scp-939-53")));
                         player.SetRole(RoleType.Scp93953, !Respawn);
                         break;
                 }
