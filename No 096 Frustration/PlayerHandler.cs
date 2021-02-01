@@ -61,7 +61,7 @@ namespace No096FrustrationEXILED20
         {
             foreach (Player player in Scp096Players)
             {
-                int randomizer = Random.Range(1, 4);
+                int randomizer = Random.Range(1, 5);
                 switch (randomizer)
                 {
                     case 1:
