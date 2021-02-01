@@ -41,7 +41,6 @@ namespace No096FrustrationEXILED20
                 if (e.RoleType == RoleType.Scp096)
                 {
                     Scp096Players.Add(e.Player);
-                    Log.Debug("player spawns");
                     Timing.CallDelayed(0.1f, () => { CheckStuff(true); });
                 }
         }
@@ -67,22 +66,22 @@ namespace No096FrustrationEXILED20
                 {
                     case 1:
 
-                        player.Broadcast(new Exiled.API.Features.Broadcast(No_096_Frustration.Singleton.Config.Were096ChangedMsg.Replace("{PlayerCount}", No_096_Frustration.Singleton.Config.MaxPlayersNewScp.ToString()).Replace("{ScpName}", "Scp-049")));
+                        player.Broadcast(10, No_096_Frustration.Singleton.Config.Were096ChangedMsg.Replace("{PlayerCount}", No_096_Frustration.Singleton.Config.MaxPlayersNewScp.ToString()).Replace("{ScpName}", "Scp-049"));
                         player.SetRole(RoleType.Scp049, !Respawn);
                         break;
                     case 2:
 
-                        player.Broadcast(new Exiled.API.Features.Broadcast(No_096_Frustration.Singleton.Config.Were096ChangedMsg.Replace("{PlayerCount}", No_096_Frustration.Singleton.Config.MaxPlayersNewScp.ToString()).Replace("{ScpName}", "Scp-106")));
+                        player.Broadcast(10, No_096_Frustration.Singleton.Config.Were096ChangedMsg.Replace("{PlayerCount}", No_096_Frustration.Singleton.Config.MaxPlayersNewScp.ToString()).Replace("{ScpName}", "Scp-106"));
                         player.SetRole(RoleType.Scp106, !Respawn);
                         break;
                     case 3:
 
-                        player.Broadcast(new Exiled.API.Features.Broadcast(No_096_Frustration.Singleton.Config.Were096ChangedMsg.Replace("{PlayerCount}", No_096_Frustration.Singleton.Config.MaxPlayersNewScp.ToString()).Replace("{ScpName}", "Scp-173")));
+                        player.Broadcast(10, No_096_Frustration.Singleton.Config.Were096ChangedMsg.Replace("{PlayerCount}", No_096_Frustration.Singleton.Config.MaxPlayersNewScp.ToString()).Replace("{ScpName}", "Scp173"));
                         player.SetRole(RoleType.Scp173, !Respawn);
                         break;
                     case 4:
 
-                        player.Broadcast(new Exiled.API.Features.Broadcast(No_096_Frustration.Singleton.Config.Were096ChangedMsg.Replace("{PlayerCount}", No_096_Frustration.Singleton.Config.MaxPlayersNewScp.ToString()).Replace("{ScpName}", "Scp-939-53")));
+                        player.Broadcast(10, No_096_Frustration.Singleton.Config.Were096ChangedMsg.Replace("{PlayerCount}", No_096_Frustration.Singleton.Config.MaxPlayersNewScp.ToString()).Replace("{ScpName}", "Scp-939-53"));
                         player.SetRole(RoleType.Scp93953, !Respawn);
                         break;
                 }
