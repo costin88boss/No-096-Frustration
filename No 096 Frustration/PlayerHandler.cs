@@ -1,41 +1,39 @@
 ﻿using Exiled.API.Features;
 using Exiled.Events.EventArgs;
+using MEC;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace No_096_Frustration_EXILED2._0
 {
-    class PlayerHandler
+    class PlayerHandler : MonoBehaviour
     {
-        public List<Player> Scp096Players;
-        public int Players;
-
-        public void OnRoundStart()
-        {
-            Players = Player.List.Count();
-        }
-        public void OnPlayerLeft(LeftEventArgs e)
+        public List<Player> Scp096Players = new List<Player>();
+        public void OnPlayerLeft(DestroyingEventArgs e)
         {
             if (e.Player.Role == RoleType.Scp096)
-                if (Scp096Players.Exists(k => k.UserId == e.Player.UserId))
-                {
-                    Scp096Players.Remove(e.Player);
-                }
-            Players--;
-        }
-        public void OnPlayerJoin(JoinedEventArgs e)
-        {
-            Players++;
+                Scp096Players.Remove(e.Player);
+
         }
         public void OnChangeRole(ChangingRoleEventArgs e)
         {
             if (No_096_Frustration.SingleTon.Config.ChangingRoleTriggersPlugin)
+            {
                 if (e.NewRole == RoleType.Scp096 && e.Player.Role != RoleType.Scp096)
-                {
+
                     Scp096Players.Add(e.Player);
-                    CheckStuff(false);
+
+                if (e.NewRole != RoleType.Scp096 && e.Player.Role == RoleType.Scp096)
+
+                    Scp096Players.Remove(e.Player);
+
+                if (e.NewRole == RoleType.Scp096)
+                {
+                    Log.Debug("Changing role");
+                    Timing.CallDelayed(0.1f, () => { CheckStuff(true); });
                 }
+            }
         }
         public void OnPlayerSpawn(SpawningEventArgs e)
         {
@@ -43,47 +41,52 @@ namespace No_096_Frustration_EXILED2._0
                 if (e.RoleType == RoleType.Scp096)
                 {
                     Scp096Players.Add(e.Player);
-                    CheckStuff(false);
+                    Log.Debug("player spawns");
+                    Timing.CallDelayed(0.1f, () => { CheckStuff(true); });
                 }
         }
-
         void CheckStuff(bool OnRoundStart)
         {
             if (!OnRoundStart)
             {
-                if (Players <= No_096_Frustration.SingleTon.Config.MaxPlayersNewScp && !Player.List.Any(e => e.IsScp && e.Role != RoleType.Scp096))
-                {
-                    foreach (Player player in Scp096Players)
-                    {
-                        int randomizer = Random.Range(1, 4);
-                        if (randomizer == 1)
-                            player.Role = RoleType.Scp049;
-                        if (randomizer == 2)
-                            player.Role = RoleType.Scp106;
-                        if (randomizer == 3)
-                            player.Role = RoleType.Scp173;
-                        if (randomizer == 4)
-                            player.Role = RoleType.Scp93953;
-
-
-
-                    }
-                }
+                if (Player.List.Count() <= No_096_Frustration.SingleTon.Config.MaxPlayersNewScp)
+                SetRole(true);
             }
-            else if (Players <= No_096_Frustration.SingleTon.Config.MaxPlayersNewScp)
+            else if (Player.List.Count() <= No_096_Frustration.SingleTon.Config.MaxPlayersNewScp && !Player.List.Any(e => e.IsScp && e.Role != RoleType.Scp096))
             {
-                foreach (Player player in Scp096Players)
+                SetRole(false);
+            }
+        }
+
+        void SetRole(bool Respawn)
+        {
+            foreach (Player player in Scp096Players)
+            {
+                int randomizer = Random.Range(1, 4);
+                switch (randomizer)
                 {
-                    int randomizer = Random.Range(1, 4);
-                    if (randomizer == 1)
-                        player.Role = RoleType.Scp049;
-                    if (randomizer == 2)
-                        player.Role = RoleType.Scp106;
-                    if (randomizer == 3)
-                        player.Role = RoleType.Scp173;
-                    if (randomizer == 4)
-                        player.Role = RoleType.Scp93953;
+                    case 1:
+
+                        player.Broadcast(new Exiled.API.Features.Broadcast(No_096_Frustration.SingleTon.Config.Were096ChangedMsg.Replace("{PlayerCount}", No_096_Frustration.SingleTon.Config.MaxPlayersNewScp.ToString()).Replace("{ScpName}", "Scp-049")));
+                        player.SetRole(RoleType.Scp049, !Respawn);
+                        break;
+                    case 2:
+
+                        player.Broadcast(new Exiled.API.Features.Broadcast(No_096_Frustration.SingleTon.Config.Were096ChangedMsg.Replace("{PlayerCount}", No_096_Frustration.SingleTon.Config.MaxPlayersNewScp.ToString()).Replace("{ScpName}", "Scp-106")));
+                        player.SetRole(RoleType.Scp106, !Respawn);
+                        break;
+                    case 3:
+
+                        player.Broadcast(new Exiled.API.Features.Broadcast(No_096_Frustration.SingleTon.Config.Were096ChangedMsg.Replace("{PlayerCount}", No_096_Frustration.SingleTon.Config.MaxPlayersNewScp.ToString()).Replace("{ScpName}", "Scp-173")));
+                        player.SetRole(RoleType.Scp173, !Respawn);
+                        break;
+                    case 4:
+
+                        player.Broadcast(new Exiled.API.Features.Broadcast(No_096_Frustration.SingleTon.Config.Were096ChangedMsg.Replace("{PlayerCount}", No_096_Frustration.SingleTon.Config.MaxPlayersNewScp.ToString()).Replace("{ScpName}", "Scp-939-53")));
+                        player.SetRole(RoleType.Scp93953, !Respawn);
+                        break;
                 }
+
             }
         }
     }

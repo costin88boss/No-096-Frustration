@@ -28,11 +28,9 @@ namespace No_096_Frustration_EXILED2._0
         {
             playerHandler = new PlayerHandler();
 
-            Player.Left += playerHandler.OnPlayerLeft;
+            Player.Destroying += playerHandler.OnPlayerLeft;
             Player.Spawning += playerHandler.OnPlayerSpawn;
-            Player.Joined += playerHandler.OnPlayerJoin;
-            Server.RoundStarted += playerHandler.OnRoundStart;
-            Exiled.Events.Handlers.Player.ChangingRole += playerHandler.OnChangeRole;
+            Player.ChangingRole += playerHandler.OnChangeRole;
         }
         public void Unregister()
         {
