@@ -7,7 +7,7 @@ using System;
 
 namespace No096FrustrationEXILED20
 {
-    public class No_096_Frustration : Plugin<Config>
+    public class No096Frustration : Plugin<Config>
     {
         public override Version RequiredExiledVersion { get; } = new Version(2, 1, 30);
         public override Version Version { get; } = new Version(1, 1, 2);
